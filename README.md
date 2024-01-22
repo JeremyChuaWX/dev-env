@@ -1,4 +1,4 @@
-# General Purpose Postgres-Docker Stack
+# PG-Docker
 
 Quick and easy Docker compose setup for Postgres and PG Admin.
 
@@ -9,7 +9,7 @@ Quick and easy Docker compose setup for Postgres and PG Admin.
 
 ## How to use
 
-Run the following commands to start and stop the servers:
+Run the following commands to start and stop the containers:
 
 ```bash
   docker compose up --build -d # up command
