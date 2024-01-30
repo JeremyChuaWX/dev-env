@@ -15,21 +15,22 @@ services:
       - ./pg_data:/var/lib/postgresql/data
 
   pgadmin:
+    configs:
+      - source: pgpass
+        target: /pgpass
+      - source: servers.json
+        target: /pgadmin4/servers.json
     container_name: pgadmin
     depends_on:
       postgres:
         condition: service_healthy
-    entrypoint: >
-      /bin/sh -c "
-      chmod 600 /tmp/pgpass;
-      mkdir -p /var/lib/pgadmin/storage/admin_admin.com;
-      cp /tmp/pgpass /var/lib/pgadmin/storage/admin_admin.com/;
-      /entrypoint.sh;
-      "
     env_file: .env
     image: dpage/pgadmin4
     ports:
       - "5050:80"
-    volumes:
-      - ./pg_admin/servers.json:/pgadmin4/servers.json
-      - ./pg_admin/pgpass:/tmp/pgpass
+
+configs:
+  pgpass:
+    file: ./pg_admin/pgpass
+  servers.json:
+    file: ./pg_admin/servers.json
