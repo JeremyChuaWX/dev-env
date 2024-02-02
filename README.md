@@ -6,6 +6,7 @@ Quick and easy Docker compose setup for Postgres and PG Admin.
 
 - Runs a Postgres instance and an accompanying PG Admin instance with auto-login.
 - Postgres data is persisted in `./pg_data` folder.
+- Pgadmin sessions are persisted in `./pg_admin` folder.
 
 ## How to use
 
@@ -22,8 +23,8 @@ Run the following commands to start and stop the containers:
 
 To add a server, there are 2 files to modify:
 
-- `./pg_admin/pgpass`
-- `./pg_admin/servers.json`
+- `./pg_config/pgpass`
+- `./pg_config/servers.json`
 
 #### pgpass
 
