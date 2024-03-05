@@ -1,12 +1,12 @@
-# PG-Docker
+# Development Environment
 
-Quick and easy Docker compose setup for Postgres and PG Admin.
+Quick and easy Docker compose setup.
 
 ## Features
 
-- Runs a Postgres instance and an accompanying PG Admin instance with auto-login.
-- Postgres data is persisted in `./pg_data` folder.
-- Pgadmin sessions are persisted in `./pg_admin` folder.
+- Postgres
+- PGAdmin
+- Redis
 
 ## How to use
 
@@ -18,6 +18,8 @@ Run the following commands to start and stop the containers:
   docker compose up --build -d # up command
   docker compose down --remove-orphans --volumes # down command
 ```
+
+## Postgres
 
 ### Adding servers
 
