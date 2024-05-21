@@ -11,12 +11,13 @@ Quick and easy Docker compose setup.
 
 ## Usage
 
-### Starting and stopping the service
-
-Run the following commands to start and stop the containers:
+### Starting and stopping the containers
 
 ```bash
   docker compose up --build -d # up command
+```
+
+```bash
   docker compose down --remove-orphans --volumes # down command
 ```
 
