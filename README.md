@@ -7,7 +7,6 @@ Quick and easy Docker compose setup.
 - Postgres
 - PGAdmin
 - Redis
-- Rabbit MQ
 
 ## Usage
 
@@ -103,9 +102,3 @@ To add a server, add a new entry to the `Servers` object with the following fiel
 The database is ran on port `6379`.
 
 The browser GUI is ran on port `8001`.
-
-## Rabbit MQ
-
-The broker is ran on port `5672`.
-
-The browser GUI is ran on port `15672`.

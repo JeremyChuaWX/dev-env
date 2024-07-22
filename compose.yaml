@@ -22,14 +22,6 @@ services:
       - "6379:6379"
       - "8001:8001"
 
-  rmq:
-    container_name: rmq
-    env_file: .env
-    image: rabbitmq:management-alpine
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   pgadmin:
     configs:
       - source: pgpass
