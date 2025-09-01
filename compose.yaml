@@ -1,0 +1,60 @@
+services:
+  postgres:
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: my_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d my_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    profiles:
+      - default
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+
+  pgadmin:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      chmod 600 /pgadmin4/pgpass;
+      chmod pgadmin:pgadmin /pgadmin4/pgpass;
+      /entrypoint.sh
+      "
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGPASS_FILE: /pgadmin4/pgpass
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    profiles:
+      - default
+    volumes:
+      - ./volumes/pgadmin:/var/lib/pgadmin
+      - ./config/pgadmin/servers.json:/pgadmin4/servers.json
+      - ./config/pgadmin/pgpass:/pgadmin4/pgpass
+
+  migrate:
+    entrypoint: migrate -path /migrations -database $DATABASE_URL -verbose up
+    env_file:
+      DATABASE_URL: postgres://
+    depends_on:
+      postgres:
+        condition: service_healthy
+    image: migrate/migrate
+    profiles:
+      - default
+    volumes:
+      - ./config/migrations:/migrations
